@@ -1,5 +1,6 @@
 package mc.reunion.ReunionPal;
 
+import mc.reunion.ReunionPal.configuration.LocalizationConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -7,11 +8,21 @@ public class PluginLoader extends JavaPlugin {
     // Prefix
     public static final String PREFIX = "§c§lReunionPal §7>> ";
 
+    // FileConfigurations
+    LocalizationConfig lc;
+
     // On plugin load
     @Override
     public void onLoad() {
         send("Loading plugin...");
         // TODO Cokolvek čo chceš načítať
+
+        send("Loading configuration");
+        this.getConfig().options().copyDefaults(true);
+        this.saveDefaultConfig();
+
+        send("Loading LocalizationConfig");
+        lc = new LocalizationConfig(this);
     }
 
     // On plugin enable
@@ -30,5 +41,12 @@ public class PluginLoader extends JavaPlugin {
     public static void send(String msg) {
         msg = msg.trim();
         Bukkit.getServer().getConsoleSender().sendMessage(PREFIX + "§7" + msg);
+    }
+
+    // Exception sender
+    public static <T extends Exception> void send(T clazz) {
+        Bukkit.getServer().getConsoleSender().sendMessage(PREFIX + "§7" + "Caught §cERROR §7" + clazz.getMessage().trim());
+        Bukkit.getServer().getConsoleSender().sendMessage("§cERROR §7StackTrace: ");
+        clazz.printStackTrace();
     }
 }
