@@ -11,11 +11,6 @@ public class PluginLoader extends JavaPlugin {
     @Override
     public void onLoad() {
         send("Loading plugin...");
-
-        // Reference init
-        send("Initializing References...");
-
-
         // TODO Cokolvek čo chceš načítať
     }
 
@@ -27,13 +22,13 @@ public class PluginLoader extends JavaPlugin {
         send("Just some developer informations...");
         send("Version: " + this.getDescription().getVersion());
         send("Main: " + this.getDescription().getMain());
-        send("Data folder path: "+ this.getDataFolder().getPath());
+        send("Data folder path: " + this.getDataFolder().getPath());
         System.out.println();
     }
 
     // Sends colorized message, will be more visible in console
     public static void send(String msg) {
         msg = msg.trim();
-        Bukkit.getServer().getConsoleSender().sendMessage(PREFIX + " §fINFO >>"+ " §f" + msg);
+        Bukkit.getServer().getConsoleSender().sendMessage(PREFIX + "§7" + msg);
     }
 }
