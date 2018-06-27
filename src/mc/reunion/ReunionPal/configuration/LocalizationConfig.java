@@ -70,7 +70,7 @@ public class LocalizationConfig {
 
         // Reading and writing stuff..
         try {
-            String line = "";
+            String line;
             do {
                 // reading line
                 line = reader.readLine();
