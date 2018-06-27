@@ -1,6 +1,7 @@
 package mc.reunion.ReunionPal;
 
 import mc.reunion.ReunionPal.configuration.LocalizationConfig;
+import mc.reunion.ReunionPal.model.TestCommands;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,18 +24,19 @@ public class PluginLoader extends JavaPlugin {
 
         send("Loading LocalizationConfig");
         lc = new LocalizationConfig(this);
+
     }
 
     // On plugin enable
     @Override
     public void onEnable() {
         send("Plugin enabled!");
-        System.out.println();
         send("Just some developer informations...");
         send("Version: " + this.getDescription().getVersion());
         send("Main: " + this.getDescription().getMain());
         send("Data folder path: " + this.getDataFolder().getPath());
-        System.out.println();
+
+        this.getCommand("barstart").setExecutor(new TestCommands());
     }
 
     // Sends colorized message, will be more visible in console
@@ -45,8 +47,8 @@ public class PluginLoader extends JavaPlugin {
 
     // Exception sender
     public static <T extends Exception> void send(T clazz) {
-        Bukkit.getServer().getConsoleSender().sendMessage(PREFIX + "§7" + "Caught §cERROR §7" + clazz.getMessage().trim());
-        Bukkit.getServer().getConsoleSender().sendMessage("§cERROR §7StackTrace: ");
+        Bukkit.getServer().getConsoleSender().sendMessage(PREFIX + "§7" + "Caught §cEXCEPTION: §7" + clazz.getMessage().trim());
+        Bukkit.getServer().getConsoleSender().sendMessage("§cEXCEPTION §7StackTrace: ");
         clazz.printStackTrace();
     }
 }
