@@ -1,0 +1,3 @@
+name: ReunionPal
+version: 1.0Alpha
+main: mc.reunion.ReunionPal.PluginLoader
