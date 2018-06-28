@@ -1,0 +1,6 @@
+bossbar:
+  title: "Tento server je podporovaný serverom §c§lMCReunion.eu"
+  repeat: 1800
+ # 1800secs - 30mins
+
+chat: "§7[INFO] §fTento server je podporovaný serverom §c§lMCReunion.eu"

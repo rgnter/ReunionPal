@@ -10,12 +10,12 @@ import java.nio.charset.Charset;
 
 import static mc.reunion.ReunionPal.PluginLoader.send;
 
-public class LocalizationConfig {
+public class MessagesConfig {
     private File file;
     private FileConfiguration configuration;
     private Plugin plugin;
 
-    public LocalizationConfig(String name, Plugin plugin) {
+    public MessagesConfig(String name, Plugin plugin) {
         this.plugin = plugin;
         name = name.trim() + ".yml";
         try {
@@ -32,8 +32,8 @@ public class LocalizationConfig {
         }
     }
 
-    public LocalizationConfig(Plugin plugin) {
-        new LocalizationConfig("localization", plugin);
+    public MessagesConfig(Plugin plugin) {
+        new MessagesConfig("messages", plugin);
     }
 
     public FileConfiguration getConfiguration() {
@@ -54,7 +54,7 @@ public class LocalizationConfig {
     public void loadDefaulty() {
         // Default file reader
         InputStreamReader in_reader = new InputStreamReader(
-                plugin.getResource("localization.yml"),
+                plugin.getResource("messages.yml"),
                 Charset.forName("UTF-8"));
         BufferedReader reader = new BufferedReader(in_reader);
 
@@ -76,7 +76,7 @@ public class LocalizationConfig {
                 line = reader.readLine();
                 if (line != null) {
                     //writing line
-                    writer.write(line);
+                    writer.write(line +"\n");
                 }
             } while (line != null);
         } catch (IOException x) {

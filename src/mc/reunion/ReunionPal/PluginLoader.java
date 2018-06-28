@@ -1,7 +1,7 @@
 package mc.reunion.ReunionPal;
 
-import mc.reunion.ReunionPal.configuration.LocalizationConfig;
-import mc.reunion.ReunionPal.model.TestCommands;
+import mc.reunion.ReunionPal.advertiser.Advertiser;
+import mc.reunion.ReunionPal.configuration.MessagesConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -9,8 +9,13 @@ public class PluginLoader extends JavaPlugin {
     // Prefix
     public static final String PREFIX = "§c§lReunionPal §7>> ";
 
+    // instance
+    public static PluginLoader instance;
+    //Adversiter
+    Advertiser ads = new Advertiser();
+
     // FileConfigurations
-    LocalizationConfig lc;
+    public MessagesConfig messagesConfig;
 
     // On plugin load
     @Override
@@ -18,25 +23,33 @@ public class PluginLoader extends JavaPlugin {
         send("Loading plugin...");
         // TODO Cokolvek čo chceš načítať
 
-        send("Loading configuration");
+        send("Loading default configuration");
         this.getConfig().options().copyDefaults(true);
         this.saveDefaultConfig();
 
-        send("Loading LocalizationConfig");
-        lc = new LocalizationConfig(this);
+        send("Loading messages configuration");
+        messagesConfig = new MessagesConfig("messages",this);
 
     }
 
     // On plugin enable
     @Override
     public void onEnable() {
+        instance = this;
         send("Plugin enabled!");
         send("Just some developer informations...");
         send("Version: " + this.getDescription().getVersion());
         send("Main: " + this.getDescription().getMain());
         send("Data folder path: " + this.getDataFolder().getPath());
 
-        this.getCommand("barstart").setExecutor(new TestCommands());
+        send("--");
+        send("(Console does not support Unicode, so do not be scared if something is weird in title)");
+        send("Bossbar title: " + messagesConfig.getConfiguration().getString("bossbar.title"));
+        send("Bossbar repeats every: " + messagesConfig.getConfiguration().getLong("bossbar.repeat") + "secs");
+        send("a.k.a " + (messagesConfig.getConfiguration().getLong("bossbar.repeat")/60)+"mins");
+        send("--");
+        send("Useful, i know");
+        ads.enable();
     }
 
     // Sends colorized message, will be more visible in console
@@ -44,7 +57,10 @@ public class PluginLoader extends JavaPlugin {
         msg = msg.trim();
         Bukkit.getServer().getConsoleSender().sendMessage(PREFIX + "§7" + msg);
     }
-
+    public static <T extends Object> void send(T msg) {
+        String msgs = msg.toString().trim();
+        Bukkit.getServer().getConsoleSender().sendMessage(PREFIX + "§7" + msgs);
+    }
     // Exception sender
     public static <T extends Exception> void send(T clazz) {
         Bukkit.getServer().getConsoleSender().sendMessage(PREFIX + "§7" + "Caught §cEXCEPTION: §7" + clazz.getMessage().trim());

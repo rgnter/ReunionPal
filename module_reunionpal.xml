@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_reunionpal" default="compile.module.reunionpal">
+  <dirname property="module.reunionpal.basedir" file="${ant.file.module_reunionpal}"/>
+  
+  <property name="module.jdk.home.reunionpal" value="${jdk.home.1.8}"/>
+  <property name="module.jdk.bin.reunionpal" value="${jdk.bin.1.8}"/>
+  <property name="module.jdk.classpath.reunionpal" value="jdk.classpath.1.8"/>
+  
+  <property name="compiler.args.reunionpal" value="-encoding UTF-8 -source 9 -target 9 ${compiler.args}"/>
+  
+  <property name="reunionpal.output.dir" value="${module.reunionpal.basedir}/../out/production/ReunionPal"/>
+  <property name="reunionpal.testoutput.dir" value="${module.reunionpal.basedir}/../out/test/ReunionPal"/>
+  
+  <path id="reunionpal.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="reunionpal.module.production.classpath">
+    <path refid="${module.jdk.classpath.reunionpal}"/>
+    <path refid="library.spigot-1.12.2.classpath"/>
+  </path>
+  
+  <path id="reunionpal.runtime.production.module.classpath">
+    <pathelement location="${reunionpal.output.dir}"/>
+    <path refid="library.spigot-1.12.2.classpath"/>
+  </path>
+  
+  <path id="reunionpal.module.classpath">
+    <path refid="${module.jdk.classpath.reunionpal}"/>
+    <pathelement location="${reunionpal.output.dir}"/>
+    <path refid="library.spigot-1.12.2.classpath"/>
+  </path>
+  
+  <path id="reunionpal.runtime.module.classpath">
+    <pathelement location="${reunionpal.testoutput.dir}"/>
+    <pathelement location="${reunionpal.output.dir}"/>
+    <path refid="library.spigot-1.12.2.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.reunionpal">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.reunionpal">
+    <patternset refid="excluded.from.module.reunionpal"/>
+  </patternset>
+  
+  <path id="reunionpal.module.sourcepath">
+    <dirset dir="${module.reunionpal.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.reunionpal" depends="compile.module.reunionpal.production,compile.module.reunionpal.tests" description="Compile module ReunionPal"/>
+  
+  <target name="compile.module.reunionpal.production" depends="register.custom.compilers" description="Compile module ReunionPal; production classes">
+    <mkdir dir="${reunionpal.output.dir}"/>
+    <javac2 destdir="${reunionpal.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.reunionpal}/javac">
+      <compilerarg line="${compiler.args.reunionpal}"/>
+      <bootclasspath refid="reunionpal.module.bootclasspath"/>
+      <classpath refid="reunionpal.module.production.classpath"/>
+      <src refid="reunionpal.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.reunionpal"/>
+    </javac2>
+    
+    <copy todir="${reunionpal.output.dir}">
+      <fileset dir="${module.reunionpal.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.reunionpal.tests" depends="register.custom.compilers,compile.module.reunionpal.production" description="compile module ReunionPal; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.reunionpal" description="cleanup module">
+    <delete dir="${reunionpal.output.dir}"/>
+    <delete dir="${reunionpal.testoutput.dir}"/>
+  </target>
+</project>
