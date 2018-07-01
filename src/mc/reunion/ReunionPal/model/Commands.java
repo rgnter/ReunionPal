@@ -31,6 +31,9 @@ public class Commands implements CommandExecutor, TabCompleter {
                     PluginLoader.instance.reload();
                     sender.sendMessage("§aReloaded with love ^^");
                 }
+                else {
+                }
+                sender.sendMessage("§cUnknown subcommand. §7:_(");
             }
         }
         return true;

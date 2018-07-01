@@ -45,6 +45,12 @@ public class MessagesConfig {
             send(x);
         }
     }
+    public void saveDefaultConfig() {
+        if (!this.file.exists()) {
+            this.getPlugin().saveResource("messages.yml", false);
+        }
+
+    }
 
     public MessagesConfig(Plugin plugin) {
         new MessagesConfig("messages", plugin);
