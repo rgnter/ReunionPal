@@ -22,7 +22,6 @@ public class Commands implements CommandExecutor, TabCompleter {
                 return true;
             } else {
                 if(args[0].equalsIgnoreCase("reload")) {
-                    String es = "\|";
                     if(!sender.isOp() && sender.hasPermission("reunionpal.admin")) {
                         sender.sendMessage("§cYou need to be administrator to use this command!");
                         return true;
