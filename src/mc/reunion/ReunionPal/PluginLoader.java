@@ -30,7 +30,7 @@ public class PluginLoader extends JavaPlugin {
 
         send("Loading messages configuration");
         messagesConfig = new MessagesConfig("messages",this);
-        messagesConfig.saveDefaultConfig();
+       // messagesConfig.saveDefaultConfig();
 
     }
 
