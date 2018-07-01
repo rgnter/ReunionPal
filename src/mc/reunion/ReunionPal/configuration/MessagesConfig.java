@@ -1,6 +1,8 @@
 package mc.reunion.ReunionPal.configuration;
 
+import mc.reunion.ReunionPal.PluginLoader;
 import org.apache.commons.lang.Validate;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -28,6 +30,18 @@ public class MessagesConfig {
             }
             configuration = YamlConfiguration.loadConfiguration(file);
         } catch (Exception x) {
+            send(x);
+        }
+    }
+    public void reload() {
+        try {
+            configuration.load(file);
+            configuration = YamlConfiguration.loadConfiguration(file);
+            PluginLoader.instance.sendInfo();
+        } catch (IOException x) {
+            send(x);
+        }
+        catch (InvalidConfigurationException x) {
             send(x);
         }
     }

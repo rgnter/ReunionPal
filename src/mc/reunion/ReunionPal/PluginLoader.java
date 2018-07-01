@@ -2,6 +2,7 @@ package mc.reunion.ReunionPal;
 
 import mc.reunion.ReunionPal.advertiser.Advertiser;
 import mc.reunion.ReunionPal.configuration.MessagesConfig;
+import mc.reunion.ReunionPal.model.Commands;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -48,8 +49,16 @@ public class PluginLoader extends JavaPlugin {
         send("Bossbar repeats every: " + messagesConfig.getConfiguration().getLong("bossbar.repeat") + "secs");
         send("a.k.a " + (messagesConfig.getConfiguration().getLong("bossbar.repeat")/60)+"mins");
         send("--");
+        send("(Console does not support Unicode, so do not be scared if something is weird in title)");
+        send("Chat title: " + messagesConfig.getConfiguration().getString("chat.title"));
+        send("Chat repeats every: " + messagesConfig.getConfiguration().getLong("chat.repeat") + "secs");
+        send("a.k.a " + (messagesConfig.getConfiguration().getLong("chat.repeat")/60)+"mins");
+        send("--");
         send("Useful, i know");
         ads.enable();
+
+        // commands
+        this.getCommand("pal").setExecutor(new Commands());
     }
 
     // Sends colorized message, will be more visible in console
@@ -66,5 +75,24 @@ public class PluginLoader extends JavaPlugin {
         Bukkit.getServer().getConsoleSender().sendMessage(PREFIX + "§7" + "Caught §cEXCEPTION: §7" + clazz.getMessage().trim());
         Bukkit.getServer().getConsoleSender().sendMessage("§cEXCEPTION §7StackTrace: ");
         clazz.printStackTrace();
+    }
+    public void sendInfo() {
+        send("--");
+        send("(Console does not support Unicode, so do not be scared if something is weird in title)");
+        send("Bossbar title: " + messagesConfig.getConfiguration().getString("bossbar.title"));
+        send("Bossbar repeats every: " + messagesConfig.getConfiguration().getLong("bossbar.repeat") + "secs");
+        send("a.k.a " + (messagesConfig.getConfiguration().getLong("bossbar.repeat")/60)+"mins");
+        send("--");
+        send("(Console does not support Unicode, so do not be scared if something is weird in title)");
+        send("Chat title: " + messagesConfig.getConfiguration().getString("chat.title"));
+        send("Chat repeats every: " + messagesConfig.getConfiguration().getLong("chat.repeat") + "secs");
+        send("a.k.a " + (messagesConfig.getConfiguration().getLong("chat.repeat")/60)+"mins");
+        send("--");
+        send("Useful, i know");
+    }
+
+    public void reload() {
+        Advertiser.disable();
+        Advertiser.enable();
     }
 }
