@@ -1,12 +1,19 @@
 package mc.reunion.ReunionPal.model;
 
 import mc.reunion.ReunionPal.PluginLoader;
+import net.minecraft.server.v1_12_R1.ChatModifier;
+import net.minecraft.server.v1_12_R1.IChatBaseComponent;
+import net.minecraft.server.v1_12_R1.PacketPlayOutChat;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.craftbukkit.v1_12_R1.command.CraftConsoleCommandSender;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
+import org.bukkit.entity.Player;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class Commands implements CommandExecutor, TabCompleter {
@@ -30,10 +37,22 @@ public class Commands implements CommandExecutor, TabCompleter {
                     PluginLoader.instance.messagesConfig.reload();
                     PluginLoader.instance.reload();
                     sender.sendMessage("§aReloaded with love ^^");
+                    return true;
                 }
                 else {
+                    sender.sendMessage("§cUnknown subcommand. §7:_(");
+                    if(args[0].contains("re")) {
+                        IChatBaseComponent msg = IChatBaseComponent.ChatSerializer.a("[\"\",{\"text\":\"Did you meant \",\"color\":\"gray\",\"clickEvent\":{\"action\":\"suggest_command\",\"value\":\"/pal reload\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"Click to suggest command\"}},{\"text\":\"reload\",\"color\":\"green\",\"clickEvent\":{\"action\":\"suggest_command\",\"value\":\"/pal reload\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"Click to suggest command\"}},{\"text\":\"?\",\"color\":\"gray\",\"clickEvent\":{\"action\":\"suggest_command\",\"value\":\"/pal reload\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"Click to suggest command\"}}]");
+                        PacketPlayOutChat chat = new PacketPlayOutChat(msg);
+                        if(sender instanceof Player) {
+                            Player player = (Player) sender;
+                            ((CraftPlayer) player).getHandle().playerConnection.sendPacket(chat);
+                        }else {
+                            sender.sendMessage("§7Did you meant §areload§7?");
+                        }
+                    }
+                    return true;
                 }
-                sender.sendMessage("§cUnknown subcommand. §7:_(");
             }
         }
         return true;
@@ -41,7 +60,11 @@ public class Commands implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String s, String[] args) {
-        return Arrays.asList("pal");
+        if(args.length > 0) {
+            return Arrays.asList("reload");
+        }else {
+            return Arrays.asList("pal");
+        }
     }
 
     public void sendInfo(CommandSender sender) {
