@@ -11,3 +11,7 @@ chat:
   # Repeat in seconds
   repeat: 900
  #900secs - 15mins
+
+actionbar:
+  title: "Kys"
+  repeat: 1920

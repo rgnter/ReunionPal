@@ -63,12 +63,8 @@ public class PluginLoader extends JavaPlugin {
     }
 
     // Sends colorized message, will be more visible in console
-    public static void send(String msg) {
-        msg = msg.trim();
-        Bukkit.getServer().getConsoleSender().sendMessage(PREFIX + "§7" + msg);
-    }
-    public static <T extends Object> void send(T msg) {
-        String msgs = msg.toString().trim();
+    public static <T extends String> void send(T msg) {
+        String msgs = msg.trim();
         Bukkit.getServer().getConsoleSender().sendMessage(PREFIX + "§7" + msgs);
     }
     // Exception sender
@@ -95,5 +91,6 @@ public class PluginLoader extends JavaPlugin {
     public void reload() {
         Advertiser.disable();
         Advertiser.enable();
+        messagesConfig = new MessagesConfig("messages",this);
     }
 }
