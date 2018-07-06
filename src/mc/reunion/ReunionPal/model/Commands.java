@@ -34,7 +34,7 @@ public class Commands implements CommandExecutor, TabCompleter {
                     PluginLoader.instance.reloadConfig();
                     PluginLoader.instance.messagesConfig.reload();
                     PluginLoader.instance.reload();
-                    sender.sendMessage("§aReloaded with love ^^");
+                    sender.sendMessage("§aReloaded with love ^^.");
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("advert")) {

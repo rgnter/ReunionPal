@@ -58,10 +58,6 @@ public class Bossbar {
         bar.removePlayer(player);
     }
 
-    private static void decreaseBar() {
-
-    }
-
     private static void resetBar() {
         bar.setProgress(1);
     }

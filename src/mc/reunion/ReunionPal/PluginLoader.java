@@ -12,8 +12,6 @@ public class PluginLoader extends JavaPlugin {
 
     // instance
     public static PluginLoader instance;
-    //Adversiter
-    Advertiser ads = new Advertiser();
 
     // FileConfigurations
     public MessagesConfig messagesConfig;
@@ -39,10 +37,15 @@ public class PluginLoader extends JavaPlugin {
     public void onEnable() {
         instance = this;
         sendInfo();
-        ads.enable();
+        Advertiser.enable();
 
         // commands
         this.getCommand("pal").setExecutor(new Commands());
+    }
+
+    @Override
+    public void onDisable() {
+        Advertiser.disable();
     }
 
     // Sends colorized message, will be more visible in console

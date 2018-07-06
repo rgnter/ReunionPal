@@ -1,7 +1,7 @@
 name: ReunionPal
-version: 1.0Alpha
+version: 1.4-stable
 main: mc.reunion.ReunionPal.PluginLoader
-authors: [Mrwener]
+authors: [MrWener]
 description: 'Developed with love for reunion.eu by MrWener ^^.'
 commands:
  pal:
