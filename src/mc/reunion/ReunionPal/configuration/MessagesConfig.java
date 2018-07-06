@@ -37,7 +37,6 @@ public class MessagesConfig {
         try {
             configuration.load(file);
             configuration = YamlConfiguration.loadConfiguration(file);
-            PluginLoader.instance.sendInfo();
         } catch (IOException x) {
             send(x);
         }
@@ -45,7 +44,14 @@ public class MessagesConfig {
             send(x);
         }
     }
-
+    public void save() {
+        try {
+            configuration.save(file);
+            reload();
+        } catch (IOException x) {
+            send(x);
+        }
+    }
     public MessagesConfig(Plugin plugin) {
         new MessagesConfig("messages", plugin);
     }

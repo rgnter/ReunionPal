@@ -38,24 +38,7 @@ public class PluginLoader extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        send("Plugin enabled!");
-        send("Just some developer informations...");
-        send("Version: " + this.getDescription().getVersion());
-        send("Main: " + this.getDescription().getMain());
-        send("Data folder path: " + this.getDataFolder().getPath());
-
-        send("--");
-        send("(Console does not support Unicode, so do not be scared if something is weird in title)");
-        send("Bossbar title: " + messagesConfig.getConfiguration().getString("bossbar.title"));
-        send("Bossbar repeats every: " + messagesConfig.getConfiguration().getLong("bossbar.repeat") + "secs");
-        send("a.k.a " + (messagesConfig.getConfiguration().getLong("bossbar.repeat")/60)+"mins");
-        send("--");
-        send("(Console does not support Unicode, so do not be scared if something is weird in title)");
-        send("Chat title: " + messagesConfig.getConfiguration().getString("chat.title"));
-        send("Chat repeats every: " + messagesConfig.getConfiguration().getLong("chat.repeat") + "secs");
-        send("a.k.a " + (messagesConfig.getConfiguration().getLong("chat.repeat")/60)+"mins");
-        send("--");
-        send("Useful, i know");
+        sendInfo();
         ads.enable();
 
         // commands
@@ -74,23 +57,34 @@ public class PluginLoader extends JavaPlugin {
         clazz.printStackTrace();
     }
     public void sendInfo() {
-        send("--");
+        System.out.println(" ");
+        send("§6SETTINGS");
+        System.out.println(" ");
+        send("§6Bossbar >");
         send("(Console does not support Unicode, so do not be scared if something is weird in title)");
         send("Bossbar title: " + messagesConfig.getConfiguration().getString("bossbar.title"));
         send("Bossbar repeats every: " + messagesConfig.getConfiguration().getLong("bossbar.repeat") + "secs");
         send("a.k.a " + (messagesConfig.getConfiguration().getLong("bossbar.repeat")/60)+"mins");
-        send("--");
+        System.out.println(" ");
+        send("§6Chat >");
         send("(Console does not support Unicode, so do not be scared if something is weird in title)");
         send("Chat title: " + messagesConfig.getConfiguration().getString("chat.title"));
         send("Chat repeats every: " + messagesConfig.getConfiguration().getLong("chat.repeat") + "secs");
         send("a.k.a " + (messagesConfig.getConfiguration().getLong("chat.repeat")/60)+"mins");
-        send("--");
+        System.out.println(" ");
+        send("§6Actiobar >");
+        send("(Console does not support Unicode, so do not be scared if something is weird in title)");
+        send("Actionbar title: " + messagesConfig.getConfiguration().getString("actionbar.title"));
+        send("Actionbar repeats every: " + messagesConfig.getConfiguration().getLong("actionbar.repeat") + "secs");
+        send("a.k.a " + (messagesConfig.getConfiguration().getLong("actionbar.repeat")/60)+"mins");
+        System.out.println(" ");
         send("Useful, i know");
+        System.out.println(" ");
     }
 
     public void reload() {
         Advertiser.disable();
         Advertiser.enable();
-        messagesConfig = new MessagesConfig("messages",this);
+        sendInfo();
     }
 }

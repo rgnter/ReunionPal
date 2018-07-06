@@ -13,5 +13,7 @@ chat:
  #900secs - 15mins
 
 actionbar:
-  title: "Kys"
+  # Poiuzívaj iba §! (Alt+21)
+  title: "§cMcReunion"
+  # 35 mins
   repeat: 1920

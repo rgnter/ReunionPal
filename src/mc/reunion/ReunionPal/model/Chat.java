@@ -10,6 +10,7 @@ public class Chat {
     public static void advert(Player player) {
         sendMessage(player);
     }
+
     private static void sendMessage(Player p) {
         p.sendMessage(ChatColor.translateAlternateColorCodes(
                 '&',
